@@ -1,3 +1,3 @@
-# MITMFuzz - On the fly TCP and UDP network fuzzer
+# MITMFuzz
 On the fly TCP and UDP network fuzzer
 
