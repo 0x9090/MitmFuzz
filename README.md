@@ -1,3 +1,3 @@
-# ProxyFuzz - On the fly TCP and UDP network fuzzer
+# MitmFuzz - On the fly TCP and UDP network fuzzer
 On the fly TCP and UDP network fuzzer
 
