@@ -139,8 +139,7 @@ def starttcpproxy():
 def usage():
 	#print "###############################################################"
 	print
-	print "ProxyFuzz 0.1, Simple fuzzing proxy by Rodrigo Marcos"
-	print "http://www.secforce.co.uk"
+	print "MITM Fuzzer"
 	print
 	print "usage():"
 	#print
