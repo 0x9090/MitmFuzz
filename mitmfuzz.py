@@ -143,7 +143,7 @@ def usage():
 	print
 	print "usage():"
 	#print
-	print "python proxyfuzz -l <localport> -r <remotehost> -p <remoteport> [options]"
+	print "python mitmfuzz -l <localport> -r <remotehost> -p <remoteport> [options]"
 	print
 	print " [options]"
 	print "		-c: Fuzz only client side (both otherwise)"
