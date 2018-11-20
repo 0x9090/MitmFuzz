@@ -7,8 +7,7 @@ import getopt, sys
 from random import randint
 
 
-# UDP Proxy stuff
-
+# UDP Proxy
 class Client(DatagramProtocol):
 	def __init__(self, server, host, port):
 		self.server = server
@@ -23,7 +22,6 @@ class Client(DatagramProtocol):
 		global notuntil
 		global request
 		global testclient
-	
 		if testclient:
 			if request < notuntil:
 				request = request + 1
@@ -37,17 +35,14 @@ class Client(DatagramProtocol):
  
 class Server(DatagramProtocol):
 	client = None
-    
 	def datagramReceived(self, data, (host, port)):
 		if not self.client or self.client.host != host or self.client.port != port:
 			self.client = Client(self, host, port)
 			reactor.listenUDP(0, self.client)
-
 		global verbose
 		global notuntil
 		global request
 		global testserver
-		
 		if testserver:
 			if request < notuntil:
 				request = request + 1
@@ -58,24 +53,20 @@ class Server(DatagramProtocol):
 			print "%r" % data 
 		self.client.transport.write(data, (desthost, destport))
  
-# TCP proxy stuff
-
+# TCP proxy
 def server_dataReceived(self, data):
 	global verbose
 	global notuntil
 	global request
 	global testserver
-	
 	if testserver:
 		if request < notuntil:
 			request = request + 1
 		else:
 			data = fuzz(data)
-
 	if verbose:
 		print "Client ------> server"
 		print "%r" % data
-		
 	portforward.Proxy.dataReceived(self, data)
 
 portforward.ProxyServer.dataReceived = server_dataReceived
@@ -85,7 +76,6 @@ def client_dataReceived(self, data):
 	global notuntil
 	global request
 	global testclient
-	
 	if testclient:
 		if request < notuntil:
 			request = request + 1
@@ -94,18 +84,16 @@ def client_dataReceived(self, data):
 	if verbose:
 		print "Server ------> Client"
 		print "%r" % data
-	
 	portforward.Proxy.dataReceived(self, data)
 
 portforward.ProxyClient.dataReceived = client_dataReceived
 
-       
-overflowstrings = ["A" * 255, "A" * 256, "A" * 257, "A" * 420, "A" * 511, "A" * 512, "A" * 1023, "A" * 1024, "A" * 2047, "A" * 2048, "A" * 4096, "A" * 4097, "A" * 5000, "A" * 10000, "A" * 20000, "A" * 32762, "A" * 32763, "A" * 32764, "A" * 32765, "A" * 32766, "A" * 32767, "A" * 32768, "A" * 65534, "A" * 65535, "A" * 65536, "%x" * 1024, "%n" * 1025 , "%s" * 2048, "%s%n%x%d" * 5000, "%s" * 30000, "%s" * 40000, "%.1024d", "%.2048d", "%.4096d", "%.8200d", "%99999999999s", "%99999999999d", "%99999999999x", "%99999999999n", "%99999999999s" * 1000, "%99999999999d" * 1000, "%99999999999x" * 1000, "%99999999999n" * 1000, "%08x" * 100, "%%20s" * 1000,"%%20x" * 1000,"%%20n" * 1000,"%%20d" * 1000, "%#0123456x%08x%x%s%p%n%d%o%u%c%h%l%q%j%z%Z%t%i%e%g%f%a%C%S%08x%%#0123456x%%x%%s%%p%%n%%d%%o%%u%%c%%h%%l%%q%%j%%z%%Z%%t%%i%%e%%g%%f%%a%%C%%S%%08x"]
+overflowstrings = ["A" * 255, "A" * 256, "A" * 257, "A" * 420, "A" * 511, "A" * 512, "A" * 1023, "A" * 1024, "A" * 2047, "A" * 2048, "A" * 4096, "A" * 4097, "A" * 5000, "A" * 10000, "A" * 20000, "A" * 32762, "A" * 32763, "A" * 32764, "A" * 32765, "A" * 32766, "A" * 32767, "A" * 32768, "A" * 65534, "A" * 65535, "A" * 65536, "%x" * 1024, "%n" * 1025 , "%s" * 2048, "%s%n%x%d" * 5000, "%s" * 30000, "%s" * 40000, "%.1024d", "%.2048d", "%.4096d", "%.8200d", "%99999999999s", "%99999999999d", "%99999999999x", "%99999999999n", "%99999999999s" * 1000, "%99999999999d" * 1000, "%99999999999x" * 1000, "%99999999999n" * 1000, "%08x" * 100, "%%20s" * 1000,"%%20x" * 1000,"%%20n" * 1000,"%%20d" * 1000, "%#0123456x%08x%x%s%p%n%d%o%u%c%h%l%q%j%z%Z%t%i%e%g%f%a%C%S%08x%%#0123456x%%x%%s%%p%%n%%d%%o%%u%%c%%h%%l%%q%%j%%z%%Z%%t%%i%%e%%g%%f%%a%%C%%S%%08x", "-1", "0", "0x100", "0x1000", "0x3fffffff", "0x7ffffffe", "0x7fffffff", "0x80000000", "0xfffffffe", "0xffffffff", "0x10000", "0x100000", "%@", "%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@
+", "%s%p%x%d", "%p%p%p%p", "%x%x%x%x", "%d%d%d%d", "%s%s%s%s", "%08x", "%20d", "%20n", "%20x", "%20s", "XXXXX.%p", "\x10\x01\x48\x08_%08x.%08x.%08x.%08x.%08x|%s|", "%.16705u%2\$hn"]
 	
 def bitflipping(data):
 	l = len(data)
 	n = int(l*7/100) # 7% of the bytes to be modified
-	
 	for i in range(0,n): # We change the bytes
 		r = randint(0,l-1)
 		data = data[0:r] + chr(randint(0,255)) + data[r+1:]
@@ -118,11 +106,9 @@ def bofinjection(data):
 	return data
 
 def fuzz(data):
-
 	r = randint(0,5)
 	if r==0:
 		data = bitflipping(data)
-
 	r = randint(0,5)
 	if r==0:
 		data = bofinjection(data)
@@ -172,7 +158,6 @@ def main():
 	global destport
 	global testclient
 	global testserver
-	
 	try:
 		opts, args = getopt.getopt(sys.argv[1:], "uvhcsl:r:p:w:", ["help"])
 	except getopt.GetoptError:
@@ -198,13 +183,10 @@ def main():
 			if o == "-c": # Only client
 				testserver=0
 			if o == "-s": # Only server
-				testclient=0
-				
-				
+				testclient=0	
 	except:
 		usage()
 		sys.exit(2)
-		
 	if testserver==0 and testclient==0:
 		usage()
 		sys.exit(2)
@@ -219,5 +201,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    
-    
