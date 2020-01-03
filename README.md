@@ -5,7 +5,7 @@ Performs random BoF, IoF, IuF, format string injection, null byte injection, and
 
 ### Usage
 
-python mitmfuzz -l <localport> -r <remotehost> -p <remoteport> [options]
+python mitmfuzz -l \<localport\> -r \<remotehost\> -p \<remoteport\> [options]
 
 #### Options
 
