@@ -7,7 +7,7 @@ Performs random BoF, IoF, IuF, format string injection, null byte injection, and
 
 python mitmfuzz -l <localport> -r <remotehost> -p <remoteport> [options]
 
-[options]
+#### Options
 
 -c: Fuzz only client side (both otherwise)
 
