@@ -21,7 +21,9 @@ python mitmfuzz -l <localport> -r <remotehost> -p <remoteport> [options]
 
 -h: Help page
 
+<br />  
+<br />  
 
-Modify the "overflowstrings" array to add in your own BoF payloads.
+Modify the "overflowstrings" array to add in your own attack payloads.
 
 Modify the "fuzz(data)" function to change the fuzzing logic
